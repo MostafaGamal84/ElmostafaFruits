@@ -1,0 +1,63 @@
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/visual-editor/admin-visual-editor.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:154:17:
+[37m      154 │ ...   import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/visual-editor/admin-visual-editor.component"[0m
+
+    src/app/app.routes.ts:102:44:
+[37m      102 │ ...=> import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/visual-editor/admin-visual-editor.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:154:17:
+[37m      154 │ ...   import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/visual-editor/admin-visual-editor.component"[0m
+
+    src/app/app.routes.ts:102:44:
+[37m      102 │ ...=> import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/visual-editor/admin-visual-editor.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:154:17:
+[37m      154 │ ...   import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/visual-editor/admin-visual-editor.component"[0m
+
+    src/app/app.routes.ts:102:44:
+[37m      102 │ ...=> import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2345: Argument of type 'string' is not assignable to parameter of type 'EditorValueScope'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/admin/pages/visual-editor/admin-visual-editor.component.ts:646:48:
+[37m      646 │ ...cc[this.makeStorageKey(entry.nodeId, [32mentry.scope[37m)] = entry.value;
+          ╵                                         [32m~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2345: Argument of type 'string' is not assignable to parameter of type 'EditorValueScope'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/admin/pages/visual-editor/admin-visual-editor.component.ts:646:48:
+[37m      646 │ ...cc[this.makeStorageKey(entry.nodeId, [32mentry.scope[37m)] = entry.value;
+          ╵                                         [32m~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2345: Argument of type 'string' is not assignable to parameter of type 'EditorValueScope'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/admin/pages/visual-editor/admin-visual-editor.component.ts:646:48:
+[37m      646 │ ...cc[this.makeStorageKey(entry.nodeId, [32mentry.scope[37m)] = entry.value;
+          ╵                                         [32m~~~~~~~~~~~[0m
+
+[39m[22m

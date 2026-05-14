@@ -1,0 +1,210 @@
+﻿{
+    "products":  [
+                     {
+                         "id":  "1",
+                         "name":  "Premium Apples",
+                         "name_ar":  "ØªÙØ§Ø­ ÙØ§Ø®Ø±",
+                         "imageUrl":  "assets/real-apple.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Italy",
+                                        "Poland",
+                                        "Greece"
+                                    ],
+                         "varieties":  [
+                                           "Gala",
+                                           "Red Delicious",
+                                           "Golden",
+                                           "Eda Red",
+                                           "Nida Red"
+                                       ],
+                         "description":  "Exquisite selection of crisp, premium apples from the heart of European orchards.",
+                         "description_ar":  "ØªØ´ÙƒÙŠÙ„Ø© Ø±Ø§Ø¦Ø¹Ø© Ù…Ù† Ø§Ù„ØªÙØ§Ø­ Ø§Ù„ÙØ§Ø®Ø± ÙˆØ§Ù„Ù…Ù‚Ø±Ù…Ø´ Ù…Ù† Ù‚Ù„Ø¨ Ø¨Ø³Ø§ØªÙŠÙ† Ø£ÙˆØ±ÙˆØ¨Ø§.",
+                         "category":  "stone"
+                     },
+                     {
+                         "id":  "2",
+                         "name":  "Fresh Kiwi",
+                         "name_ar":  "ÙƒÙŠÙˆÙŠ Ø·Ø§Ø²Ø¬",
+                         "imageUrl":  "assets/real-kiwi.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Greece",
+                                        "Italy"
+                                    ],
+                         "varieties":  [
+                                           "Hayward"
+                                       ],
+                         "description":  "Hand-picked, vibrant green kiwifruit with a perfect balance of sweetness and tang.",
+                         "description_ar":  "Ø«Ù…Ø§Ø± Ø§Ù„ÙƒÙŠÙˆÙŠ Ø§Ù„Ø®Ø¶Ø±Ø§Ø¡ Ø§Ù„Ù†Ø§Ø¨Ø¶Ø© Ø¨Ø§Ù„Ø­ÙŠØ§Ø©ØŒ Ù…Ù†ØªÙ‚Ø§Ø© ÙŠØ¯ÙˆÙŠØ§Ù‹ Ø¨ØªÙˆØ§Ø²Ù† Ù…Ø«Ø§Ù„ÙŠ Ø¨ÙŠÙ† Ø§Ù„Ø­Ù„Ø§ÙˆØ© ÙˆØ§Ù„Ø­Ù…ÙˆØ¶Ø©.",
+                         "category":  "exotic"
+                     },
+                     {
+                         "id":  "3",
+                         "name":  "Hass Avocado",
+                         "name_ar":  "Ø£ÙÙˆÙƒØ§Ø¯Ùˆ Ù‡Ø§Ø³",
+                         "imageUrl":  "assets/real-avocado.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Kenya"
+                                    ],
+                         "varieties":  [
+                                           "Hass"
+                                       ],
+                         "description":  "Rich, creamy, and nutty avocados sourced from sustainable Kenyan farms.",
+                         "description_ar":  "Ø£ÙÙˆÙƒØ§Ø¯Ùˆ ØºÙ†ÙŠØŒ ÙƒØ±ÙŠÙ…ÙŠØŒ ÙˆØ°Ùˆ Ù†ÙƒÙ‡Ø© Ø¬ÙˆØ²ÙŠØ© Ù…Ù…ÙŠØ²Ø©ØŒ Ù…Ø³ØªÙˆØ±Ø¯ Ù…Ù† Ù…Ø²Ø§Ø±Ø¹ ÙƒÙŠÙ†ÙŠØ§ Ø§Ù„Ù…Ø³ØªØ¯Ø§Ù…Ø©.",
+                         "category":  "exotic"
+                     },
+                     {
+                         "id":  "4",
+                         "name":  "Sweet Cherries",
+                         "name_ar":  "ÙƒØ±Ø² Ø­Ù„Ùˆ",
+                         "imageUrl":  "assets/real-cherry.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Greece",
+                                        "Italy"
+                                    ],
+                         "varieties":  [
+                                           "Bing"
+                                       ],
+                         "description":  "Dark, succulent cherries bursting with seasonal sweetness.",
+                         "description_ar":  "ÙƒØ±Ø² Ø¯Ø§ÙƒÙ† ÙˆÙ†Ø§Ø¶Ø¬ ÙŠÙ†Ø¨Ø¶ Ø¨Ø­Ù„Ø§ÙˆØ© Ø§Ù„Ù…ÙˆØ³Ù….",
+                         "category":  "stone"
+                     },
+                     {
+                         "id":  "5",
+                         "name":  "Gold Pineapples",
+                         "name_ar":  "Ø£Ù†Ø§Ù†Ø§Ø³ Ø°Ù‡Ø¨ÙŠ",
+                         "imageUrl":  "assets/real-pineapple.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Costa Rica",
+                                        "Malaysia"
+                                    ],
+                         "varieties":  [
+                                           "MD2"
+                                       ],
+                         "description":  "Golden, honey-sweet pineapples directly from tropical paradises.",
+                         "description_ar":  "Ø£Ù†Ø§Ù†Ø§Ø³ Ø°Ù‡Ø¨ÙŠ Ø¨Ø­Ù„Ø§ÙˆØ© Ø§Ù„Ø¹Ø³Ù„ Ù…Ø³ØªÙˆØ±Ø¯ Ù…Ø¨Ø§Ø´Ø±Ø© Ù…Ù† Ø§Ù„Ø¬Ù†Ø§Øª Ø§Ù„Ø§Ø³ØªÙˆØ§Ø¦ÙŠØ©.",
+                         "category":  "exotic"
+                     },
+                     {
+                         "id":  "6",
+                         "name":  "Premium Bananas",
+                         "name_ar":  "Ù…ÙˆØ² ÙØ§Ø®Ø±",
+                         "imageUrl":  "assets/real-banana.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Ecuador"
+                                    ],
+                         "description":  "The perfect tropical snack: creamy and naturally sweet bananas from Ecuador.",
+                         "description_ar":  "Ø§Ù„ÙˆØ¬Ø¨Ø© Ø§Ù„Ø§Ø³ØªÙˆØ§Ø¦ÙŠØ© Ø§Ù„Ù…Ø«Ø§Ù„ÙŠØ©: Ù…ÙˆØ² ÙƒØ±ÙŠÙ…ÙŠ ÙˆØ­Ù„Ùˆ Ø·Ø¨ÙŠØ¹ÙŠØ§Ù‹ Ù…Ù† Ø§Ù„Ø¥ÙƒÙˆØ§Ø¯ÙˆØ±.",
+                         "category":  "exotic"
+                     },
+                     {
+                         "id":  "7",
+                         "name":  "Italian Plums",
+                         "name_ar":  "Ø¨Ø±Ù‚ÙˆÙ‚ Ø¥ÙŠØ·Ø§Ù„ÙŠ",
+                         "imageUrl":  "assets/real-plum.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Italy"
+                                    ],
+                         "description":  "Deep purple, juicy plums with a rich, velvety texture.",
+                         "description_ar":  "Ø¨Ø±Ù‚ÙˆÙ‚ Ø£Ø±Ø¬ÙˆØ§Ù†ÙŠ Ø¯Ø§ÙƒÙ† ÙˆØ¹ØµØ§Ø±ÙŠ Ø°Ùˆ Ù…Ù„Ù…Ø³ Ù…Ø®Ù…Ù„ÙŠ ØºÙ†ÙŠ.",
+                         "category":  "stone"
+                     },
+                     {
+                         "id":  "8",
+                         "name":  "Sun-Kissed Peaches",
+                         "name_ar":  "Ø®ÙˆØ® Ù…Ø´Ù…Ø³",
+                         "imageUrl":  "assets/real-peach.png",
+                         "imageFilter":  "none",
+                         "origin":  [
+                                        "Italy"
+                                    ],
+                         "description":  "Sweet, fragrant, and perfectly ripe peaches from the Italian sun.",
+                         "description_ar":  "Ø®ÙˆØ® Ø­Ù„ÙˆØŒ Ø¹Ø·Ø±ÙŠØŒ ÙˆÙ†Ø§Ø¶Ø¬ ØªÙ…Ø§Ù…Ø§Ù‹ ØªØ­Øª Ø´Ù…Ø³ Ø¥ÙŠØ·Ø§Ù„ÙŠØ§.",
+                         "category":  "stone"
+                     }
+                 ],
+    "origins":  [
+                    {
+                        "flag":  "ðŸ‡®ðŸ‡¹",
+                        "country":  "Italy",
+                        "country_ar":  "Ø¥ÙŠØ·Ø§Ù„ÙŠØ§",
+                        "products":  [
+                                         "Premium Apples",
+                                         "Fresh Kiwi",
+                                         "Sweet Cherries",
+                                         "Italian Plums",
+                                         "Sun-Kissed Peaches"
+                                     ],
+                        "latitude":  41.8719,
+                        "longitude":  12.5674
+                    },
+                    {
+                        "flag":  "ðŸ‡µðŸ‡±",
+                        "country":  "Poland",
+                        "country_ar":  "Ø¨ÙˆÙ„Ù†Ø¯Ø§",
+                        "products":  [
+                                         "Premium Apples"
+                                     ],
+                        "latitude":  51.9194,
+                        "longitude":  19.1451
+                    },
+                    {
+                        "flag":  "ðŸ‡¬ðŸ‡·",
+                        "country":  "Greece",
+                        "country_ar":  "Ø§Ù„ÙŠÙˆÙ†Ø§Ù†",
+                        "products":  [
+                                         "Premium Apples",
+                                         "Fresh Kiwi",
+                                         "Sweet Cherries"
+                                     ],
+                        "latitude":  39.0742,
+                        "longitude":  21.8243
+                    },
+                    {
+                        "flag":  "ðŸ‡°ðŸ‡ª",
+                        "country":  "Kenya",
+                        "country_ar":  "ÙƒÙŠÙ†ÙŠØ§",
+                        "products":  [
+                                         "Hass Avocado"
+                                     ],
+                        "latitude":  -0.0236,
+                        "longitude":  37.9062
+                    },
+                    {
+                        "flag":  "ðŸ‡¨ðŸ‡·",
+                        "country":  "Costa Rica",
+                        "country_ar":  "ÙƒÙˆØ³ØªØ§Ø±ÙŠÙƒØ§",
+                        "products":  [
+                                         "Gold Pineapples"
+                                     ],
+                        "latitude":  9.7489,
+                        "longitude":  -83.7534
+                    },
+                    {
+                        "flag":  "ðŸ‡²ðŸ‡¾",
+                        "country":  "Malaysia",
+                        "country_ar":  "Ù…Ø§Ù„ÙŠØ²ÙŠØ§",
+                        "products":  [
+                                         "Gold Pineapples"
+                                     ],
+                        "latitude":  4.2105,
+                        "longitude":  101.9758
+                    },
+                    {
+                        "flag":  "ðŸ‡ªðŸ‡¨",
+                        "country":  "Ecuador",
+                        "country_ar":  "Ø§Ù„Ø¥ÙƒÙˆØ§Ø¯ÙˆØ±",
+                        "products":  [
+                                         "Premium Bananas"
+                                     ],
+                        "latitude":  -1.8312,
+                        "longitude":  -78.1834
+                    }
+                ]
+}

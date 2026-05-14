@@ -1,0 +1,71 @@
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/dashboard/admin-dashboard.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:69:17:
+[37m      69 │ ...   import([32m'./admin/pages/dashboard/admin-dashboard.component'[37m)....
+         ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/dashboard/admin-dashboard.component"[0m
+
+    src/app/app.routes.ts:51:44:
+[37m      51 │ ...=> import([32m'./admin/pages/dashboard/admin-dashboard.component'[37m)....
+         ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/dashboard/admin-dashboard.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:69:17:
+[37m      69 │ ...   import([32m'./admin/pages/dashboard/admin-dashboard.component'[37m)....
+         ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/dashboard/admin-dashboard.component"[0m
+
+    src/app/app.routes.ts:51:44:
+[37m      51 │ ...=> import([32m'./admin/pages/dashboard/admin-dashboard.component'[37m)....
+         ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/visual-editor/admin-visual-editor.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:154:17:
+[37m      154 │ ...   import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/visual-editor/admin-visual-editor.component"[0m
+
+    src/app/app.routes.ts:102:44:
+[37m      102 │ ...=> import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2307: Cannot find module './admin/pages/visual-editor/admin-visual-editor.component' or its corresponding type declarations.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.routes.ts:154:17:
+[37m      154 │ ...   import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "./admin/pages/visual-editor/admin-visual-editor.component"[0m
+
+    src/app/app.routes.ts:102:44:
+[37m      102 │ ...=> import([32m'./admin/pages/visual-editor/admin-visual-editor.com[37m...
+          ╵              [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8109: NG8109: sections is a function and should be invoked: sections(). Find more at https://v21.angular.dev/extended-diagnostics/NG8109[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/admin/pages/dashboard/admin-dashboard.component.ts:44:21:
+[37m      44 │           <strong>{{ [32msections[37m.length }}</strong>
+         ╵                      [32m~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2322: Type 'Signal<ManagedSection[]>' is not assignable to type 'NgIterable<any> | null | undefined'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/admin/pages/dashboard/admin-dashboard.component.ts:67:61:
+[37m      67 │ ...    <article class="section-row" *ngFor="let section [32mof sections[37m">
+         ╵                                                         [32m~~~~~~~~~~~[0m
+
+[39m[22m
+^C^C
