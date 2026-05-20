@@ -28,14 +28,17 @@ export class AppComponent {
     }
 
     history.scrollRestoration = 'manual';
+    this.updateRouteClasses(this.router.url);
 
     this.router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe(() => {
-        const [pathWithQuery, fragment = ''] = this.router.url.split('#');
+      .subscribe((event) => {
+        this.updateRouteClasses(event.urlAfterRedirects);
+
+        const [pathWithQuery, fragment = ''] = event.urlAfterRedirects.split('#');
         const path = pathWithQuery.split('?')[0];
 
         if (path === '' || path === '/') {
@@ -48,5 +51,13 @@ export class AppComponent {
 
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       });
+  }
+
+  private updateRouteClasses(url: string): void {
+    const path = url.split(/[?#]/)[0] || '/';
+    const isAdminRoute = path === '/admin' || path.startsWith('/admin/');
+
+    document.body.classList.toggle('admin-route', isAdminRoute);
+    document.body.classList.toggle('public-route', !isAdminRoute);
   }
 }

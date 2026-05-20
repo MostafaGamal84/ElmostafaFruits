@@ -1,251 +1,517 @@
-import { Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AboutPageSection, AboutPageText } from '../../core/models/about-page.model';
 import { LanguageService } from '../../core/services/language.service';
+import { AboutPageService } from '../../core/services/about-page.service';
+import { resolveAssetUrl } from '../../core/utils/asset-url.util';
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
+  imports: [CommonModule],
   template: `
-    <section class="about-us-section" id="about-us">
-      <div class="container about-us-layout">
-        <div class="photo-story" aria-hidden="true">
-          <figure class="photo-frame photo-frame-main">
-            <img
-              class="about-logo"
-              src="assets/logo-transparent.png"
-              alt="El Mostafa"
-              loading="lazy"
-              decoding="async"
-              data-edit-id="aboutUs.logo"
-              data-edit-label="About Us Logo"
-              data-edit-type="image"
-              data-edit-scope="global"
-            />
-          </figure>
-          <figure class="photo-frame photo-frame-small photo-frame-top">
-            <img src="assets/real-apple.png" alt="" loading="lazy" decoding="async" />
-          </figure>
-          <figure class="photo-frame photo-frame-small photo-frame-bottom">
-            <img src="assets/real-banana-cutout.png" alt="" loading="lazy" decoding="async" />
-          </figure>
+    <section class="about-subheader" *ngIf="sections().length > 0">
+      <div class="container about-subheader-wrap">
+        <div class="about-subheader-shell">
+          <div class="header-tabs d-none d-md-flex">
+            <button
+              type="button"
+              *ngFor="let section of sections(); trackBy: trackBySection"
+              [class.active]="activeSectionId() === section.id"
+            (click)="scrollToSection(section.id)"
+          >
+            {{ readText(section.navLabel) }}
+          </button>
         </div>
 
-        <div class="about-copy">
-          <span
-            class="eyebrow"
-            data-edit-id="aboutUs.eyebrow"
-            data-edit-label="About Us Eyebrow"
+        <div
+          class="header-tabs header-tabs-mobile d-md-none"
+          *ngIf="!useMobileSectionSelect()"
+        >
+          <button
+            type="button"
+            *ngFor="let section of sections(); trackBy: trackBySection"
+            [class.active]="activeSectionId() === section.id"
+            (click)="scrollToSection(section.id)"
           >
-            {{ lang.translateEditable('aboutUs.eyebrow', 'aboutUs.eyebrow') }}
-          </span>
-          <h2
-            class="font-playfair"
-            data-edit-id="aboutUs.title"
-            data-edit-label="About Us Title"
-          >
-            {{ lang.translateEditable('aboutUs.title', 'aboutUs.title') }}
-          </h2>
-          <p
-            data-edit-id="aboutUs.lead"
-            data-edit-label="About Us Lead"
-            data-edit-type="textarea"
-          >
-            {{ lang.translateEditable('aboutUs.lead', 'aboutUs.lead') }}
-          </p>
-          <p
-            data-edit-id="aboutUs.body"
-            data-edit-label="About Us Body"
-            data-edit-type="textarea"
-          >
-            {{ lang.translateEditable('aboutUs.body', 'aboutUs.body') }}
-          </p>
-
-          <div class="about-points" aria-label="Company highlights">
-            <span data-edit-id="aboutUs.point.0" data-edit-label="About Us Point 1">
-              {{ lang.translateEditable('aboutUs.point.0', 'aboutUs.points.0') }}
-            </span>
-            <span data-edit-id="aboutUs.point.1" data-edit-label="About Us Point 2">
-              {{ lang.translateEditable('aboutUs.point.1', 'aboutUs.points.1') }}
-            </span>
-            <span data-edit-id="aboutUs.point.2" data-edit-label="About Us Point 3">
-              {{ lang.translateEditable('aboutUs.point.2', 'aboutUs.points.2') }}
-            </span>
-          </div>
+            {{ readText(section.navLabel) }}
+          </button>
         </div>
+
+        <div class="section-select d-md-none" *ngIf="useMobileSectionSelect()">
+          <label>
+            <span class="visually-hidden">About us sections</span>
+            <select [value]="activeSectionId()" (change)="onSectionSelect($event)">
+              <option
+                *ngFor="let section of sections(); trackBy: trackBySection"
+                [value]="section.id"
+              >
+                {{ readText(section.navLabel) }}
+              </option>
+            </select>
+          </label>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section
+      class="story-section"
+      *ngFor="let section of sections(); let index = index; trackBy: trackBySection"
+      [id]="section.id"
+    >
+      <div
+        class="story-backdrop"
+        [style.background-image]="buildSectionBackground(section, index)"
+      ></div>
+      <div class="story-overlay"></div>
+
+      <div class="container story-shell">
+        <article class="story-card">
+          <div class="sun-mark" aria-hidden="true"></div>
+          <span class="story-label">{{ readText(section.navLabel) }}</span>
+          <h2>{{ readText(section.title) }}</h2>
+          <p>{{ readText(section.body) }}</p>
+        </article>
       </div>
     </section>
   `,
   styles: [
     `
-      .font-playfair {
-        font-family: var(--font-display);
-      }
-
-      .about-us-section {
-        position: relative;
-        overflow: hidden;
-        background:
-          radial-gradient(circle at 16% 24%, rgba(245, 124, 0, 0.12), transparent 30%),
-          radial-gradient(circle at 88% 78%, rgba(211, 47, 47, 0.1), transparent 34%),
-          var(--bg-primary);
-        padding: clamp(88px, 11vw, 150px) 0;
-        scroll-margin-top: 110px;
-        transition: background-color 0.5s ease;
-      }
-
-      .about-us-layout {
-        display: grid;
-        grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1fr);
-        align-items: center;
-        gap: clamp(36px, 6vw, 86px);
-      }
-
-      .photo-story {
-        position: relative;
-        min-height: clamp(360px, 42vw, 560px);
-      }
-
-      .photo-frame {
-        position: absolute;
-        margin: 0;
-        overflow: visible;
-        border: 0;
-        background: transparent;
-        box-shadow: none;
-      }
-
-      .photo-frame img {
-        width: 100%;
-        height: 100%;
+      :host {
         display: block;
-        object-fit: contain;
-        filter: contrast(1.08) saturate(1.05);
+        --about-subheader-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
+        --about-subheader-border: rgba(245, 124, 0, 0.16);
+        --about-subheader-bg:
+          linear-gradient(135deg, rgba(245, 124, 0, 0.08), rgba(255, 201, 74, 0.04)),
+          color-mix(in srgb, var(--bg-primary) 88%, transparent);
+        --about-section-overlay:
+          linear-gradient(180deg, rgba(24, 28, 38, 0.16), rgba(10, 14, 22, 0.54)),
+          radial-gradient(circle at 50% 18%, rgba(255, 201, 74, 0.28), transparent 18%),
+          linear-gradient(135deg, rgba(245, 124, 0, 0.24), rgba(91, 42, 13, 0.26));
+        --about-section-image-opacity: 0.98;
+        --about-card-bg:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 201, 74, 0.06)),
+          rgba(16, 18, 24, 0.18);
+        background:
+          radial-gradient(circle at top left, rgba(245, 124, 0, 0.16), transparent 28%),
+          radial-gradient(circle at top right, rgba(255, 201, 74, 0.11), transparent 26%),
+          radial-gradient(circle at bottom right, rgba(211, 47, 47, 0.09), transparent 34%),
+          var(--bg-primary);
       }
 
-      .photo-frame-main {
-        inset: 4% 14% 6% 4%;
-        display: grid;
-        place-items: center;
-        padding: clamp(22px, 4vw, 48px);
+      :host-context(body.dark-theme) {
+        --about-subheader-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+        --about-subheader-border: rgba(245, 124, 0, 0.22);
+        --about-subheader-bg:
+          linear-gradient(135deg, rgba(245, 124, 0, 0.12), rgba(211, 47, 47, 0.08)),
+          rgba(24, 24, 24, 0.72);
+        --about-section-overlay:
+          linear-gradient(180deg, rgba(8, 10, 16, 0.18), rgba(4, 6, 10, 0.68)),
+          radial-gradient(circle at 50% 18%, rgba(245, 124, 0, 0.22), transparent 18%),
+          linear-gradient(135deg, rgba(245, 124, 0, 0.18), rgba(7, 8, 12, 0.44));
+        --about-section-image-opacity: 0.94;
+        --about-card-bg:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(245, 124, 0, 0.04)),
+          rgba(12, 14, 20, 0.24);
       }
 
-      .photo-frame-main .about-logo {
-        max-width: min(72%, 340px);
-        max-height: min(68%, 260px);
-        width: auto;
-        height: auto;
-        padding: 0;
-        background: transparent;
-        box-shadow: none;
-        filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34));
+      .about-subheader {
+        position: sticky;
+        top: 84px;
+        z-index: 30;
+        padding: 16px 0 20px;
       }
 
-      .photo-frame-small {
-        width: clamp(112px, 12vw, 172px);
-        aspect-ratio: 1;
-        display: grid;
-        place-items: center;
-        padding: 0;
-        z-index: 2;
+      .about-subheader-wrap {
+        display: flex;
+        justify-content: center;
       }
 
-      .photo-frame-top {
-        top: 0;
-        right: 0;
-        transform: rotate(7deg);
+      .about-subheader-shell {
+        width: fit-content;
+        max-width: 100%;
+        padding: 14px;
+        border-radius: 999px;
+        border: 1px solid var(--about-subheader-border);
+        background: var(--about-subheader-bg);
+        box-shadow: var(--about-subheader-shadow);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
       }
 
-      .photo-frame-bottom {
-        left: 0;
-        bottom: 0;
-        transform: rotate(-8deg);
+      .header-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 0;
+        justify-content: center;
       }
 
-      .about-copy {
-        max-width: 640px;
+      .header-tabs button {
+        border: 1px solid var(--border-color);
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: var(--bg-surface);
+        color: var(--text-secondary);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          background 0.25s ease,
+          color 0.25s ease;
       }
 
-      .eyebrow {
+      .header-tabs button:hover,
+      .header-tabs button.active {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 14px 28px rgba(245, 124, 0, 0.24);
+      }
+
+      .header-tabs-mobile {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .header-tabs-mobile::-webkit-scrollbar {
+        display: none;
+      }
+
+      .header-tabs-mobile button {
+        flex: 0 0 auto;
+        min-height: 48px;
+        padding-inline: 18px;
+        white-space: nowrap;
+      }
+
+      .section-select label {
+        display: block;
+      }
+
+      .section-select select {
+        width: 100%;
+        min-height: 62px;
+        border: 1px solid var(--border-color);
+        border-radius: 18px;
+        padding: 0 18px;
+        background: var(--card-bg);
+        color: var(--text-primary);
+        font: inherit;
+        font-size: 1.05rem;
+        font-weight: 700;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .section-select select:focus {
+        outline: 2px solid rgba(245, 124, 0, 0.22);
+        outline-offset: 4px;
+      }
+
+      .story-section {
+        position: relative;
+        isolation: isolate;
+        min-height: clamp(520px, 84vh, 860px);
+        padding: clamp(56px, 8vw, 96px) 0;
+        scroll-margin-top: 176px;
+      }
+
+      .story-backdrop,
+      .story-overlay {
+        position: absolute;
+      }
+
+      .story-backdrop {
+        inset: 0;
+        opacity: var(--about-section-image-opacity);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .story-overlay {
+        inset: 0;
+        background: var(--about-section-overlay);
+      }
+
+      .story-shell {
+        position: relative;
+        z-index: 1;
+        min-height: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .story-card {
+        width: min(760px, 100%);
+        padding: clamp(28px, 4vw, 40px);
+        border-radius: 32px;
+        background: var(--about-card-bg);
+        border: 1px solid rgba(255, 201, 74, 0.28);
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        color: #fff;
+        text-align: center;
+      }
+
+      .sun-mark {
+        width: 118px;
+        height: 58px;
+        margin: 0 auto 22px;
+        border-radius: 58px 58px 0 0;
+        background: linear-gradient(180deg, #ffd54f 0%, #ffca28 100%);
+      }
+
+      .story-label {
         display: inline-block;
         margin-bottom: 14px;
-        color: var(--color-primary);
-        font-size: 0.78rem;
-        font-weight: 900;
-        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
       }
 
-      h2 {
-        margin: 0 0 22px;
-        color: var(--text-primary);
-        font-size: clamp(2.4rem, 5.4vw, 5rem);
-        font-weight: 900;
-        line-height: 0.95;
+      .story-card h2,
+      .story-card p {
+        margin: 0;
       }
 
-      p {
-        margin: 0;
-        color: var(--text-secondary);
-        font-size: clamp(1rem, 1.45vw, 1.15rem);
+      .story-card h2 {
+        font-size: clamp(2.1rem, 4.8vw, 3.7rem);
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .story-card p {
+        margin-top: 18px;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: clamp(1rem, 1.5vw, 1.18rem);
         line-height: 1.8;
       }
 
-      p + p {
-        margin-top: 16px;
-      }
-
-      .about-points {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 28px;
-      }
-
-      .about-points span {
-        border: 1px solid rgba(245, 124, 0, 0.28);
-        border-radius: 999px;
-        padding: 9px 13px;
-        background: rgba(245, 124, 0, 0.08);
-        color: var(--text-primary);
-        font-size: 0.82rem;
-        font-weight: 800;
-      }
-
       @media (max-width: 991px) {
-        .about-us-layout {
-          grid-template-columns: 1fr;
+        .about-subheader {
+          top: 70px;
+          padding: 14px 0 18px;
         }
 
-        .photo-story {
-          min-height: 420px;
-          order: 2;
-        }
-
-        .about-copy {
-          order: 1;
-          max-width: 720px;
+        .story-card {
+          width: min(100%, 640px);
         }
       }
 
       @media (max-width: 576px) {
-        .about-us-section {
-          padding: 78px 0;
+        .about-subheader {
+          top: 60px;
+          padding: 10px 0 14px;
         }
 
-        .photo-story {
-          min-height: 340px;
+        .about-subheader-wrap {
+          display: block;
         }
 
-        .photo-frame-main {
-          inset: 6% 7% 8% 7%;
+        .about-subheader-shell {
+          padding: 10px;
+          border-radius: 26px;
         }
 
-        .photo-frame-small {
-          width: 104px;
+        .header-tabs-mobile {
+          gap: 10px;
+          margin-inline: -4px;
+          padding-inline: 4px;
+        }
+
+        .header-tabs-mobile button {
+          min-height: 46px;
+          padding-inline: 16px;
+          font-size: 0.94rem;
+        }
+
+        .section-select select {
+          min-height: 58px;
+          font-size: 1rem;
+        }
+
+        .story-section {
+          min-height: 460px;
+          padding: 34px 0;
+          scroll-margin-top: 148px;
+        }
+
+        .story-card {
+          border-radius: 22px;
+          padding: 22px 20px;
+        }
+
+        .sun-mark {
+          width: 90px;
+          height: 44px;
+          margin-bottom: 18px;
+        }
+
+        .story-label {
+          font-size: 0.74rem;
+          letter-spacing: 0.14em;
         }
       }
     `,
   ],
 })
-export class AboutUsComponent {
+export class AboutUsComponent implements AfterViewInit {
   readonly lang = inject(LanguageService);
+  private readonly aboutPage = inject(AboutPageService);
+  private readonly mobileSelectThreshold = 4;
+
+  readonly content = this.aboutPage.content;
+  readonly sections = computed(() => this.content().sections);
+  readonly activeSectionId = signal('');
+  readonly useMobileSectionSelect = computed(
+    () => this.sections().length > this.mobileSelectThreshold,
+  );
+
+  constructor() {
+    effect(() => {
+      const sections = this.sections();
+      const activeSectionId = this.activeSectionId();
+
+      if (!sections.length) {
+        return;
+      }
+
+      if (!activeSectionId || !sections.some((section) => section.id === activeSectionId)) {
+        queueMicrotask(() => this.activeSectionId.set(sections[0].id));
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    window.setTimeout(() => this.syncActiveSectionFromViewport(), 80);
+  }
+
+  @HostListener('window:scroll')
+  @HostListener('window:resize')
+  onViewportChange(): void {
+    this.syncActiveSectionFromViewport();
+  }
+
+  trackBySection(_: number, section: AboutPageSection): string {
+    return section.id;
+  }
+
+  readText(text: AboutPageText): string {
+    const locale = this.lang.currentLang();
+    return text[locale] || text.en || text.ar;
+  }
+
+  resolveSectionImage(section: AboutPageSection): string {
+    return resolveAssetUrl(section.imageUrl);
+  }
+
+  onSectionSelect(event: Event): void {
+    const target = event.target as HTMLSelectElement | null;
+    const sectionId = target?.value ?? '';
+
+    if (sectionId) {
+      this.scrollToSection(sectionId);
+    }
+  }
+
+  scrollToSection(sectionId: string): void {
+    const target = document.getElementById(sectionId);
+
+    if (!target) {
+      return;
+    }
+
+    this.activeSectionId.set(sectionId);
+    window.scrollTo({
+      top: this.getSectionScrollTop(target),
+      left: 0,
+      behavior: 'smooth',
+    });
+  }
+
+  buildSectionBackground(section: AboutPageSection, index: number): string {
+    const imageUrl = this.resolveSectionImage(section);
+    const primaryGlowX = index % 2 === 0 ? '16%' : '84%';
+    const accentGlowX = index % 2 === 0 ? '84%' : '16%';
+
+    if (!imageUrl) {
+      return `
+        radial-gradient(circle at ${primaryGlowX} 18%, rgba(245, 124, 0, 0.28), transparent 26%),
+        radial-gradient(circle at ${accentGlowX} 76%, rgba(255, 201, 74, 0.2), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(211, 47, 47, 0.12), transparent 32%),
+        linear-gradient(135deg, rgba(245, 124, 0, 0.12), rgba(255, 201, 74, 0.08)),
+        linear-gradient(180deg, var(--bg-surface), var(--bg-primary))
+      `;
+    }
+
+    return `url("${imageUrl.replace(/"/g, '%22')}")`;
+  }
+
+  private syncActiveSectionFromViewport(): void {
+    const sections = this.sections();
+
+    if (!sections.length) {
+      return;
+    }
+
+    const viewportAnchor = window.innerHeight * 0.36;
+    let activeSection = sections[0];
+    let smallestDistance = Number.POSITIVE_INFINITY;
+
+    for (const section of sections) {
+      const element = document.getElementById(section.id);
+
+      if (!element) {
+        continue;
+      }
+
+      const rect = element.getBoundingClientRect();
+
+      if (rect.top <= viewportAnchor && rect.bottom >= viewportAnchor) {
+        activeSection = section;
+        break;
+      }
+
+      const distance = Math.abs(rect.top - viewportAnchor);
+
+      if (distance < smallestDistance) {
+        smallestDistance = distance;
+        activeSection = section;
+      }
+    }
+
+    if (activeSection.id !== this.activeSectionId()) {
+      this.activeSectionId.set(activeSection.id);
+    }
+  }
+
+  private getSectionScrollTop(target: HTMLElement): number {
+    const navbar = document.querySelector<HTMLElement>('app-navbar nav');
+    const subheader = document.querySelector<HTMLElement>('app-about-us .about-subheader');
+    const navbarHeight = navbar?.getBoundingClientRect().height ?? 0;
+    const subheaderHeight = subheader?.getBoundingClientRect().height ?? 0;
+    const absoluteTop = window.scrollY + target.getBoundingClientRect().top;
+
+    return Math.max(0, Math.round(absoluteTop - navbarHeight - subheaderHeight - 24));
+  }
 }

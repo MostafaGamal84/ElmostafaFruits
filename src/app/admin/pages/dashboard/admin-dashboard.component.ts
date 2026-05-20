@@ -314,9 +314,9 @@ export class AdminDashboardComponent implements OnInit {
       primary: true,
     },
     {
-      title: this.lang.translate('admin.dashboard.primaryActions.aboutUs.title'),
-      description: this.lang.translate('admin.dashboard.primaryActions.aboutUs.description'),
-      route: '/admin/site-content',
+      title: this.aboutUsActionTitle(),
+      description: this.aboutUsActionDescription(),
+      route: '/admin/about-us',
     },
     {
       title: this.lang.translate('admin.dashboard.primaryActions.homeProducts.title'),
@@ -345,10 +345,10 @@ export class AdminDashboardComponent implements OnInit {
       meta: this.lang.translate('admin.dashboard.websiteAreas.homepage.meta'),
     },
     {
-      title: this.lang.translate('admin.dashboard.websiteAreas.aboutUs.title'),
-      description: this.lang.translate('admin.dashboard.websiteAreas.aboutUs.description'),
-      route: '/admin/site-content',
-      meta: this.lang.translate('admin.dashboard.websiteAreas.aboutUs.meta'),
+      title: this.aboutUsAreaTitle(),
+      description: this.aboutUsAreaDescription(),
+      route: '/admin/about-us',
+      meta: this.aboutUsAreaMeta(),
     },
     {
       title: this.lang.translate('admin.dashboard.websiteAreas.catalog.title'),
@@ -399,5 +399,29 @@ export class AdminDashboardComponent implements OnInit {
       },
       error: () => undefined,
     });
+  }
+
+  private aboutUsActionTitle(): string {
+    return this.lang.currentLang() === 'ar' ? 'إدارة صفحة من نحن' : 'Manage About Us Page';
+  }
+
+  private aboutUsActionDescription(): string {
+    return this.lang.currentLang() === 'ar'
+      ? 'أضف أو احذف أقسام صفحة من نحن وتحكم في العناوين والخلفيات والنصوص.'
+      : 'Add or remove About Us sections and control the header labels, backgrounds, and copy.';
+  }
+
+  private aboutUsAreaTitle(): string {
+    return this.lang.currentLang() === 'ar' ? 'صفحة من نحن' : 'About Us Page';
+  }
+
+  private aboutUsAreaDescription(): string {
+    return this.lang.currentLang() === 'ar'
+      ? 'هيدر مخصص، أقسام ديناميكية، صور خلفية، وعناوين يتم التحكم بها من لوحة الإدارة.'
+      : 'A dedicated header, dynamic sections, background images, and navigation labels managed from the dashboard.';
+  }
+
+  private aboutUsAreaMeta(): string {
+    return this.lang.currentLang() === 'ar' ? 'صفحة مستقلة' : 'Standalone Page';
   }
 }

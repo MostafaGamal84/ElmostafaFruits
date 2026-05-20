@@ -142,6 +142,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'about-us',
+        loadComponent: () =>
+          import('./admin/pages/about-us/admin-about-us.component').then(
+            (m) => m.AdminAboutUsComponent,
+          ),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import('./admin/pages/settings/admin-settings.component').then(

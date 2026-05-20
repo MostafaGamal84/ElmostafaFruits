@@ -71,13 +71,20 @@ interface FloatingFruit {
         <div class="hero-title-wrapper stagger-item">
           <!-- Outline Title (Background Parallax) -->
           <div class="hero-title-outline-container" [style.transform]="getOutlineTransform()">
-            <span
-              *ngFor="let char of titleChars(); let i = index"
-              class="char-outline"
-              [style.transition-delay]="i * 0.05 + 's'"
-            >
-              {{ char }}
-            </span>
+            <ng-container *ngIf="!isArabicTitle(); else rtlOutlineTitle">
+              <span
+                *ngFor="let char of titleChars(); let i = index"
+                class="char-outline"
+                [style.transition-delay]="i * 0.05 + 's'"
+              >
+                {{ char }}
+              </span>
+            </ng-container>
+            <ng-template #rtlOutlineTitle>
+              <span class="hero-title-rtl-copy char-outline-rtl">
+                {{ heroTitleText() }}
+              </span>
+            </ng-template>
           </div>
 
           <!-- Solid Title (Main) -->
@@ -87,15 +94,22 @@ interface FloatingFruit {
             data-edit-label="Hero Title"
             [attr.data-edit-scope]="lang.currentLang()"
           >
-            <span
-              *ngFor="let char of titleChars(); let i = index"
-              class="char-solid"
-              [style.transition-delay]="i * 0.05 + 's'"
-              [style.--letter-index]="i"
-              [style.transform]="getCharTransform(i)"
-            >
-              {{ char }}
-            </span>
+            <ng-container *ngIf="!isArabicTitle(); else rtlSolidTitle">
+              <span
+                *ngFor="let char of titleChars(); let i = index"
+                class="char-solid"
+                [style.transition-delay]="i * 0.05 + 's'"
+                [style.--letter-index]="i"
+                [style.transform]="getCharTransform(i)"
+              >
+                {{ char }}
+              </span>
+            </ng-container>
+            <ng-template #rtlSolidTitle>
+              <span class="hero-title-rtl-copy char-solid-rtl">
+                {{ heroTitleText() }}
+              </span>
+            </ng-template>
           </h1>
         </div>
         <div class="hero-subtitle-wrapper stagger-item">
@@ -130,24 +144,63 @@ interface FloatingFruit {
       .hero-section {
         height: 100vh;
         width: 100%;
-        background-color: var(--bg-primary);
+        background:
+          radial-gradient(circle at 14% 22%, rgba(245, 124, 0, 0.28), transparent 34%),
+          radial-gradient(circle at 82% 18%, rgba(253, 216, 53, 0.16), transparent 26%),
+          radial-gradient(circle at 50% 110%, rgba(211, 47, 47, 0.1), transparent 34%),
+          linear-gradient(180deg, rgba(245, 124, 0, 0.05), transparent 42%),
+          var(--bg-primary);
         position: relative;
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: background-color 0.5s ease;
+        isolation: isolate;
+      }
+      .hero-section::before,
+      .hero-section::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .hero-section::before {
+        top: -12%;
+        left: -6%;
+        width: min(38vw, 460px);
+        height: min(38vw, 460px);
+        background: radial-gradient(circle, rgba(245, 124, 0, 0.22), transparent 68%);
+        filter: blur(24px);
+      }
+      .hero-section::after {
+        right: -8%;
+        bottom: -16%;
+        width: min(34vw, 420px);
+        height: min(34vw, 420px);
+        background: radial-gradient(circle, rgba(255, 201, 74, 0.18), transparent 70%);
+        filter: blur(24px);
+      }
+      :host-context(body.dark-theme) .hero-section {
+        background:
+          radial-gradient(circle at 16% 22%, rgba(245, 124, 0, 0.22), transparent 32%),
+          radial-gradient(circle at 84% 18%, rgba(253, 216, 53, 0.12), transparent 24%),
+          radial-gradient(circle at 50% 108%, rgba(211, 47, 47, 0.12), transparent 32%),
+          linear-gradient(180deg, rgba(245, 124, 0, 0.04), transparent 40%),
+          var(--bg-primary);
       }
       .hero-orb {
         position: absolute;
-        top: -200px;
-        left: -200px;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(245, 124, 0, 0.15) 0%, rgba(245, 124, 0, 0) 70%);
+        top: -240px;
+        left: -240px;
+        width: 480px;
+        height: 480px;
+        background: radial-gradient(circle, rgba(245, 124, 0, 0.24) 0%, rgba(245, 124, 0, 0) 72%);
         border-radius: 50%;
         pointer-events: none;
         z-index: 1;
+        filter: blur(8px);
         will-change: transform;
       }
       .hero-content {
@@ -180,6 +233,7 @@ interface FloatingFruit {
         position: relative;
         perspective: 1000px;
         margin: 2rem 0;
+        overflow: visible;
       }
       .hero-title {
         font-family: var(--font-display);
@@ -197,8 +251,9 @@ interface FloatingFruit {
         direction: ltr;
       }
       :host-context([dir='rtl']) .hero-title {
-        gap: 0;
+        display: block;
         direction: rtl;
+        text-align: center;
       }
       .char-solid {
         display: inline-block;
@@ -239,8 +294,9 @@ interface FloatingFruit {
         direction: ltr;
       }
       :host-context([dir='rtl']) .hero-title-outline-container {
-        gap: 0;
+        display: block;
         direction: rtl;
+        text-align: center;
       }
       .char-outline {
         display: inline-block;
@@ -263,6 +319,26 @@ interface FloatingFruit {
           opacity: 0.16;
           filter: blur(1.2px);
         }
+      }
+
+      .hero-title-rtl-copy {
+        display: block;
+        white-space: pre-line;
+        text-transform: none;
+        line-height: 1.18;
+        padding-block: 0.1em 0.26em;
+      }
+
+      .char-solid-rtl {
+        color: inherit;
+      }
+
+      .char-outline-rtl {
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+        opacity: 0;
+        filter: blur(2px);
+        animation: outlineSoftFade 5.5s ease-in-out infinite;
       }
 
       .char-solid::before {
@@ -407,9 +483,11 @@ export class HeroComponent implements OnInit {
 
   mouseX = () => this.animationService.laggingPosition().x;
   mouseY = () => this.animationService.laggingPosition().y;
+  heroTitleText = computed(() => this.content.getHeroValue('title', this.lang.currentLang()));
+  isArabicTitle = computed(() => this.lang.currentLang() === 'ar');
 
   titleChars = computed(() => {
-    const title = this.content.getHeroValue('title', this.lang.currentLang());
+    const title = this.heroTitleText();
     return this.lang.currentLang() === 'ar'
       ? [title]
       : title.split('').map((char) => (char === ' ' ? '\u00A0' : char));

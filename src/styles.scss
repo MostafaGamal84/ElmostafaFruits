@@ -27,6 +27,74 @@
   --transition-standard: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+body.public-route:not(.dark-theme) {
+  --bg-primary: #ffffff;
+  --bg-surface: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 0, 0, 0.08);
+
+  --card-bg: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.76);
+  --color-primary: #f57c00;
+  --color-highlight: #fdd835;
+  --color-cream: #fff8f0;
+  background-image: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+  background-attachment: fixed;
+}
+
+body.public-route app-root {
+  position: relative;
+  isolation: isolate;
+}
+
+body.public-route app-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+body.public-route:not(.dark-theme) app-root::before {
+  background:
+    radial-gradient(ellipse 22% 18% at 8% 12%, rgba(245, 124, 0, 0.195), transparent 100%),
+    radial-gradient(ellipse 20% 16% at 90% 12%, rgba(255, 180, 68, 0.176), transparent 100%),
+    radial-gradient(ellipse 16% 13% at 24% 36%, rgba(255, 164, 52, 0.148), transparent 100%),
+    radial-gradient(ellipse 16% 13% at 74% 34%, rgba(245, 124, 0, 0.142), transparent 100%),
+    radial-gradient(ellipse 18% 15% at 48% 48%, rgba(255, 176, 56, 0.13), transparent 100%),
+    radial-gradient(ellipse 15% 12% at 62% 60%, rgba(245, 124, 0, 0.118), transparent 100%),
+    radial-gradient(ellipse 16% 13% at 18% 72%, rgba(245, 124, 0, 0.126), transparent 100%),
+    radial-gradient(ellipse 16% 13% at 84% 70%, rgba(255, 172, 58, 0.12), transparent 100%),
+    radial-gradient(ellipse 18% 15% at 50% 90%, rgba(255, 193, 86, 0.114), transparent 100%);
+  mix-blend-mode: normal;
+  opacity: 1.00;
+  filter: blur(26px) saturate(116%);
+}
+
+body.public-route.dark-theme {
+  background-image:
+    radial-gradient(ellipse 34% 28% at 10% 16%, rgba(240, 130, 19, 0.14), transparent 74%),
+    radial-gradient(ellipse 28% 22% at 88% 15%, rgba(255, 201, 74, 0.08), transparent 72%),
+    radial-gradient(ellipse 28% 24% at 28% 54%, rgba(245, 124, 0, 0.08), transparent 76%),
+    radial-gradient(ellipse 30% 24% at 72% 66%, rgba(211, 47, 47, 0.08), transparent 78%),
+    radial-gradient(ellipse 30% 24% at 50% 104%, rgba(245, 124, 0, 0.08), transparent 82%);
+  background-attachment: fixed;
+}
+
+body.public-route.dark-theme app-root::before {
+  background:
+    radial-gradient(ellipse 34% 28% at 10% 14%, rgba(245, 124, 0, 0.08), transparent 72%),
+    radial-gradient(ellipse 26% 22% at 88% 16%, rgba(255, 201, 74, 0.06), transparent 70%),
+    radial-gradient(ellipse 24% 20% at 26% 52%, rgba(245, 124, 0, 0.05), transparent 72%),
+    radial-gradient(ellipse 28% 22% at 74% 66%, rgba(211, 47, 47, 0.05), transparent 74%),
+    radial-gradient(ellipse 28% 22% at 50% 100%, rgba(245, 124, 0, 0.05), transparent 78%);
+  mix-blend-mode: screen;
+  opacity: 0.34;
+  filter: blur(40px) saturate(110%);
+}
+
 body.dark-theme {
   --bg-primary: #0f0f0f;
   --bg-surface: #1a1a1a;
@@ -82,7 +150,7 @@ h6 {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-dark);
+  background: var(--bg-surface);
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(245, 124, 0, 0.5);
@@ -110,6 +178,43 @@ app-public-home main > * {
 
 app-public-home main > * + * {
   margin-top: -1px;
+}
+
+app-public-home main > * > section {
+  isolation: isolate;
+}
+
+app-public-home main > * > section:not(.hero-section):not(.wave-divider)::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: clamp(72px, 10vw, 150px);
+  z-index: 80;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    color-mix(in srgb, var(--bg-primary) 62%, transparent) 38%,
+    transparent 100%
+  );
+}
+
+app-public-home main > app-fruit-slice > section::after,
+app-public-home main > app-about > section::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: clamp(96px, 12vw, 180px);
+  z-index: 90;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    var(--bg-primary) 0%,
+    color-mix(in srgb, var(--bg-primary) 58%, transparent) 42%,
+    transparent 100%
+  );
 }
 
 app-public-home main > app-marquee {

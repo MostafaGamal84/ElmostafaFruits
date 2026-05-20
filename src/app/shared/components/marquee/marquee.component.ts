@@ -105,11 +105,13 @@ import { Component } from '@angular/core';
         height: 68%;
         z-index: 2;
         overflow: hidden;
+        direction: ltr;
       }
 
       .wave-layer {
         position: absolute;
-        inset-inline-start: 0;
+        left: 0;
+        right: auto;
         bottom: 0;
         width: 200%;
         height: 100%;
@@ -134,6 +136,14 @@ import { Component } from '@angular/core';
 
       .wave-layer-front {
         animation: waveMove 10s linear infinite;
+      }
+
+      :host-context(body.public-route:not(.dark-theme)) .wave-layer-back {
+        opacity: 0.12;
+      }
+
+      :host-context(body.public-route:not(.dark-theme)) .wave-layer-mid {
+        opacity: 0.26;
       }
 
       @keyframes waveMove {

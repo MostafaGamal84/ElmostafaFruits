@@ -745,6 +745,11 @@ export class AdminLayoutComponent {
           icon: 'TC',
         },
         {
+          label: this.aboutUsNavLabel(),
+          route: '/admin/about-us',
+          icon: 'AU',
+        },
+        {
           label: this.lang.translate('admin.nav.showcase'),
           route: '/admin/showcase',
           icon: 'HP',
@@ -830,5 +835,9 @@ export class AdminLayoutComponent {
     this.closeSidebar();
     this.auth.logout();
     this.router.navigateByUrl('/admin/login');
+  }
+
+  private aboutUsNavLabel(): string {
+    return this.lang.currentLang() === 'ar' ? 'صفحة من نحن' : 'About Us Page';
   }
 }
