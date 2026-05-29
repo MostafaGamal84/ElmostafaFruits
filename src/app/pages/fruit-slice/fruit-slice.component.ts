@@ -5,10 +5,12 @@ import {
   HostListener,
   AfterViewInit,
   OnInit,
+  computed,
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../core/services/language.service';
+import { VisualEditorService } from '../../core/services/visual-editor.service';
 
 interface Particle {
   id: number;
@@ -62,7 +64,7 @@ interface Particle {
             data-edit-label="Slice Subtitle"
             data-edit-type="textarea"
           >
-            {{ lang.translate('slice.subtitle') }}
+            {{ sliceSubtitle() }}
           </p>
         </div>
 
@@ -95,7 +97,7 @@ interface Particle {
               "
             >
               <img
-                [src]="sliceFruitSrc"
+                [src]="sliceTopImageSrc()"
                 class="fruit-visual"
                 alt="Avocado top half"
                 data-edit-id="slice.image.top"
@@ -121,7 +123,7 @@ interface Particle {
               "
             >
               <img
-                [src]="sliceFruitSrc"
+                [src]="sliceBottomImageSrc()"
                 class="fruit-visual bottom-visual"
                 alt="Avocado bottom half"
                 data-edit-id="slice.image.bottom"
@@ -332,8 +334,20 @@ interface Particle {
 export class FruitSliceComponent implements OnInit, AfterViewInit {
   @ViewChild('sliceSection') section!: ElementRef<HTMLElement>;
   lang = inject(LanguageService);
-  readonly sliceTitle = () => this.normalizeLegacyLineBreaks(this.lang.translate('slice.title'));
-  readonly sliceFruitSrc = 'assets/real-avocado-slice-fruit.png';
+  private readonly visualEditor = inject(VisualEditorService);
+  private readonly defaultSliceFruitSrc = 'assets/real-avocado-slice-fruit.png';
+  readonly sliceTitle = computed(() =>
+    this.normalizeLegacyLineBreaks(this.lang.translateEditable('slice.title')),
+  );
+  readonly sliceSubtitle = computed(() =>
+    this.normalizeLegacyLineBreaks(this.lang.translateEditable('slice.subtitle')),
+  );
+  readonly sliceTopImageSrc = computed(() =>
+    this.visualEditor.getResolvedImageValue('slice.image.top', this.defaultSliceFruitSrc),
+  );
+  readonly sliceBottomImageSrc = computed(() =>
+    this.visualEditor.getResolvedImageValue('slice.image.bottom', this.defaultSliceFruitSrc),
+  );
 
   // Fruit 2D Translation vars
   topTranslateX = 0;

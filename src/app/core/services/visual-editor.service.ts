@@ -53,6 +53,14 @@ export class VisualEditorService {
     });
   }
 
+  getOverrideValue(nodeId: string, scope: EditorValueScope, fallback = ''): string {
+    return this.findOverride(nodeId, scope)?.value ?? fallback;
+  }
+
+  getResolvedImageValue(nodeId: string, fallback: string): string {
+    return resolveAssetUrl(this.getOverrideValue(nodeId, 'global', fallback));
+  }
+
   collectNodes(root: ParentNode, locale: EditableLocale): EditorNodeMeta[] {
     const elements = Array.from(root.querySelectorAll<HTMLElement>('[data-edit-id]'));
     const deduped = new Map<string, EditorNodeMeta>();

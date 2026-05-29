@@ -22,6 +22,8 @@ import { ContactNewsletterComponent } from '../contact-newsletter/contact-newsle
 import { FooterComponent } from '../footer/footer.component';
 import { LanguageService, Language } from '../../core/services/language.service';
 import { SiteContentService } from '../../core/services/site-content.service';
+import { SiteSettingsService } from '../../core/services/site-settings.service';
+import { VisualEditorService } from '../../core/services/visual-editor.service';
 
 @Component({
   selector: 'app-public-home',
@@ -96,6 +98,8 @@ export class PublicHomeComponent implements AfterViewInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly languageService: LanguageService,
     private readonly siteContent: SiteContentService,
+    private readonly siteSettings: SiteSettingsService,
+    private readonly visualEditor: VisualEditorService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
 
@@ -329,6 +333,11 @@ export class PublicHomeComponent implements AfterViewInit, OnDestroy {
       this.isRefreshQueued = false;
       this.siteContent.refreshContent();
       this.languageService.refreshRemoteContent();
+
+      if (!this.isEditorMode()) {
+        this.siteSettings.refresh();
+        this.visualEditor.refreshOverrides();
+      }
     });
   }
 

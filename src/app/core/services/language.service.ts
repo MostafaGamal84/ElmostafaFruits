@@ -1,5 +1,6 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { SiteContentApiService } from './site-content-api.service';
+import { VisualEditorService } from './visual-editor.service';
 import { SiteContent } from '../models/site-content.model';
 import { repairDeepText, repairText } from '../utils/text-normalizer.util';
 import { readLocalStorage, writeLocalStorage } from '../utils/browser-storage.util';
@@ -15,6 +16,7 @@ export interface LanguageSetOptions {
 export class LanguageService {
   private readonly LANG_KEY = 'elmostafa_lang';
   private readonly contentApi = inject(SiteContentApiService);
+  private readonly visualEditor = inject(VisualEditorService);
 
   readonly currentLang = signal<Language>('en');
   readonly remoteContent = signal<SiteContent | null>(null);
@@ -1405,6 +1407,12 @@ export class LanguageService {
 
   translateEditable(nodeId: string, translationPath?: string): string {
     const lang = this.currentLang();
+
+    const overrideValue = this.visualEditor.getOverrideValue(nodeId, lang, '');
+    if (overrideValue.trim().length > 0) {
+      return repairText(overrideValue);
+    }
+
     return repairText(this.translateFor(lang, translationPath ?? nodeId));
   }
 

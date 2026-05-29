@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AnimationService } from '../../core/services/animation.service';
 import { LanguageService } from '../../core/services/language.service';
 import { SiteContentService } from '../../core/services/site-content.service';
+import { VisualEditorService } from '../../core/services/visual-editor.service';
 
 interface FloatingFruit {
   imgSrc: string;
@@ -43,7 +44,7 @@ interface FloatingFruit {
           [style.transform]="'translateY(' + fruit.translateY + 'px)'"
         >
           <img
-            [src]="fruit.imgSrc"
+            [src]="heroFruitSources()[i]"
             class="real-fruit"
             [attr.data-edit-id]="'hero.fruit.' + i"
             [attr.data-edit-label]="'Hero Floating ' + fruit.label"
@@ -478,13 +479,26 @@ export class HeroComponent implements OnInit {
   floatingFruits: FloatingFruit[] = [];
   private animationService = inject(AnimationService);
   private readonly router = inject(Router);
+  private readonly visualEditor = inject(VisualEditorService);
   lang = inject(LanguageService);
   content = inject(SiteContentService);
+  private readonly heroFruitFallbacks = [
+    'assets/real-apple.png',
+    'assets/real-kiwi.png',
+    'assets/real-banana-cutout.png',
+    'assets/real-avocado-cutout.png',
+    'assets/real-pineapple-cutout.png',
+  ];
 
   mouseX = () => this.animationService.laggingPosition().x;
   mouseY = () => this.animationService.laggingPosition().y;
   heroTitleText = computed(() => this.content.getHeroValue('title', this.lang.currentLang()));
   isArabicTitle = computed(() => this.lang.currentLang() === 'ar');
+  heroFruitSources = computed(() =>
+    this.heroFruitFallbacks.map((fallback, index) =>
+      this.visualEditor.getResolvedImageValue(`hero.fruit.${index}`, fallback),
+    ),
+  );
 
   titleChars = computed(() => {
     const title = this.heroTitleText();

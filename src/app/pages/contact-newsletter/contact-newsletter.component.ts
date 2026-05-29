@@ -61,11 +61,21 @@ import { NewsletterApiService } from '../../core/services/newsletter-api.service
             <div class="type-toggle" role="radiogroup">
               <label class="type-option">
                 <input type="radio" formControlName="contactType" value="supplier" />
-                <span>{{ lang.translateEditable('contact.typeSupplier') }}</span>
+                <span
+                  data-edit-id="contact.typeSupplier"
+                  data-edit-label="Contact Supplier Label"
+                >
+                  {{ lang.translateEditable('contact.typeSupplier') }}
+                </span>
               </label>
               <label class="type-option">
                 <input type="radio" formControlName="contactType" value="customer" />
-                <span>{{ lang.translateEditable('contact.typeCustomer') }}</span>
+                <span
+                  data-edit-id="contact.typeCustomer"
+                  data-edit-label="Contact Customer Label"
+                >
+                  {{ lang.translateEditable('contact.typeCustomer') }}
+                </span>
               </label>
             </div>
           </div>
@@ -96,7 +106,13 @@ import { NewsletterApiService } from '../../core/services/newsletter-api.service
           </div>
 
           <button type="submit" [disabled]="contactForm.invalid || contactSaving()">
-            <span *ngIf="!contactSaving()">{{ lang.translateEditable('contact.submitIdle') }}</span>
+            <span
+              *ngIf="!contactSaving()"
+              data-edit-id="contact.submitIdle"
+              data-edit-label="Contact Submit Button"
+            >
+              {{ lang.translateEditable('contact.submitIdle') }}
+            </span>
             <span *ngIf="contactSaving()">{{
               lang.translateEditable('contact.submitLoading')
             }}</span>
@@ -143,11 +159,16 @@ import { NewsletterApiService } from '../../core/services/newsletter-api.service
             />
           </div>
           <button type="submit" [disabled]="newsletterForm.invalid || newsletterSaving()">
-            {{
-              newsletterSaving()
-                ? lang.translateEditable('newsletter.submitLoading')
-                : lang.translateEditable('newsletter.submitIdle')
-            }}
+            <span
+              *ngIf="!newsletterSaving()"
+              data-edit-id="newsletter.submitIdle"
+              data-edit-label="Newsletter Submit Button"
+            >
+              {{ lang.translateEditable('newsletter.submitIdle') }}
+            </span>
+            <span *ngIf="newsletterSaving()">
+              {{ lang.translateEditable('newsletter.submitLoading') }}
+            </span>
           </button>
           <p class="status" *ngIf="newsletterStatusKey()">{{ newsletterStatusMessage() }}</p>
         </form>

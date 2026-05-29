@@ -182,12 +182,22 @@ import { filter } from 'rxjs';
       <!-- Mobile Overlay Menu -->
       <div class="mobile-overlay" [class.show]="isMenuOpen()">
         <div class="overlay-links">
-          <a href="/about-us" (click)="navigateToRoute('/about-us', $event)">{{
-            content.getNavbarLabel('about', lang.currentLang())
-          }}</a>
-          <a href="/#origins" (click)="navigateToSection('origins', $event)">{{
-            content.getNavbarLabel('origins', lang.currentLang())
-          }}</a>
+          <a href="/about-us" (click)="navigateToRoute('/about-us', $event)"
+            ><span
+              data-edit-id="navbar.about"
+              data-edit-label="Navbar About"
+              [attr.data-edit-scope]="lang.currentLang()"
+              >{{ content.getNavbarLabel('about', lang.currentLang()) }}</span
+            ></a
+          >
+          <a href="/#origins" (click)="navigateToSection('origins', $event)"
+            ><span
+              data-edit-id="navbar.origins"
+              data-edit-label="Navbar Origins"
+              [attr.data-edit-scope]="lang.currentLang()"
+              >{{ content.getNavbarLabel('origins', lang.currentLang()) }}</span
+            ></a
+          >
           <a href="/catalog" (click)="navigateToRoute('/catalog', $event)"
             ><span
               data-edit-id="navbar.catalog"
@@ -212,9 +222,14 @@ import { filter } from 'rxjs';
               >{{ content.getNavbarLabel('quote', lang.currentLang()) }}</span
             ></a
           >
-          <a href="/#contact" (click)="navigateToSection('contact', $event)">{{
-            content.getNavbarLabel('contact', lang.currentLang())
-          }}</a>
+          <a href="/#contact" (click)="navigateToSection('contact', $event)"
+            ><span
+              data-edit-id="navbar.contact"
+              data-edit-label="Navbar Contact"
+              [attr.data-edit-scope]="lang.currentLang()"
+              >{{ content.getNavbarLabel('contact', lang.currentLang()) }}</span
+            ></a
+          >
           <a
             routerLink="/admin/login"
             (click)="closeMenuLink($event)"

@@ -56,7 +56,13 @@ type MapViewBox = {
           <div class="map-orb map-orb-one"></div>
           <div class="map-orb map-orb-two"></div>
           <div class="map-title-block">
-            <span class="map-kicker">{{ lang.translateEditable('origins.eyebrow') }}</span>
+            <span
+              class="map-kicker"
+              data-edit-id="origins.eyebrow"
+              data-edit-label="Origins Eyebrow"
+            >
+              {{ lang.translateEditable('origins.eyebrow') }}
+            </span>
             <h2
               class="map-title font-playfair"
               data-edit-id="origins.title"

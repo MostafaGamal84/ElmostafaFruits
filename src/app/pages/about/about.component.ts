@@ -5,10 +5,12 @@ import {
   ElementRef,
   ViewChild,
   AfterViewInit,
+  computed,
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../core/services/language.service';
+import { VisualEditorService } from '../../core/services/visual-editor.service';
 
 @Component({
   selector: 'app-about',
@@ -47,7 +49,7 @@ import { LanguageService } from '../../core/services/language.service';
           ></div>
 
           <img
-            src="assets/real-pineapple-cutout.png"
+            [src]="trackerPineappleSrc()"
             class="tracker-img"
             data-edit-id="about.tracker.orange"
             data-edit-label="About Tracker Pineapple"
@@ -63,7 +65,7 @@ import { LanguageService } from '../../core/services/language.service';
             decoding="async"
           />
           <img
-            src="assets/real-kiwi.png"
+            [src]="trackerKiwiSrc()"
             class="tracker-img"
             data-edit-id="about.tracker.kiwi"
             data-edit-label="About Tracker Kiwi"
@@ -79,7 +81,7 @@ import { LanguageService } from '../../core/services/language.service';
             decoding="async"
           />
           <img
-            src="assets/real-apple.png"
+            [src]="trackerAppleSrc()"
             class="tracker-img"
             data-edit-id="about.tracker.apple"
             data-edit-label="About Tracker Apple"
@@ -463,6 +465,19 @@ import { LanguageService } from '../../core/services/language.service';
 export class AboutComponent implements AfterViewInit {
   @ViewChild('timelineSection') section!: ElementRef<HTMLElement>;
   lang = inject(LanguageService);
+  private readonly visualEditor = inject(VisualEditorService);
+  readonly trackerPineappleSrc = computed(() =>
+    this.visualEditor.getResolvedImageValue(
+      'about.tracker.orange',
+      'assets/real-pineapple-cutout.png',
+    ),
+  );
+  readonly trackerKiwiSrc = computed(() =>
+    this.visualEditor.getResolvedImageValue('about.tracker.kiwi', 'assets/real-kiwi.png'),
+  );
+  readonly trackerAppleSrc = computed(() =>
+    this.visualEditor.getResolvedImageValue('about.tracker.apple', 'assets/real-apple.png'),
+  );
 
   scrollProgress = 0;
   trackerScale = 1;
